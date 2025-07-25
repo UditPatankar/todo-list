@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+  font-family: 'Poppins', sans-serif;
+}
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  background: #3f3f37;
+  color: #fff;
+}
+.heading {
+  margin: 2rem 1rem;
+}
+
+/* Input Section */
+
+.input-container {
+  max-width: 650px;
+  width: 100%;
+
+  margin: 1rem;
+  padding: 10px;
+  background: #b3b6b7;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+
+  display: grid;
+  grid-template-columns: 300px 150px 1fr;
+  gap: 10px;
+  box-shadow: 2px 2px 2px #000;
+}
+.input-text {
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #333;
+}
+.input-date {
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #333;
+}
+.add-button {
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  background: rgb(25, 185, 25);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.add-button:hover {
+  background: forestgreen;
+  color: #fff;
+}
+
+/* Todo List Section */
+
+.todo-list-container {
+  max-width: 650px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo-row {
+  width: 100%;
+
+  margin: 1rem 0;
+  padding: 10px;
+  background: #f7f3e3;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+
+  display: grid;
+  grid-template-columns: 300px 150px 1fr;
+  align-items: self-start;
+  align-self: center;
+  gap: 10px;
+  box-shadow: 2px 2px 2px #000;
+}
+.todo {
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #000;
+  text-align: left;
+}
+.due-date {
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #000;
+  text-align: left;
+}
+.delete-button {
+  height: 40px;
+  padding: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  background-color: rgb(196, 0, 0);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.delete-button:hover {
+  background-color: rgb(165, 0, 0);
+  color: #fff;
+}
