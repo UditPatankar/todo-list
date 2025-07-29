@@ -16,37 +16,48 @@
 
 <body>
   
+  <!-- Main Container -->
   <div class="main-container">
 
-      <!-- Title -->
-       <div class="title">To-Do List</div>
+    <!-- Title -->
+    <div class="title">To-Do List</div>
 
-      <!-- Input Container -->
-      <div class="input-container">
+    <!-- Input Container -->
+    <div class="input-container">
+      <input id="task-input" type="text" placeholder="Enter your task" class="task-input js-task-input">
+      <input id="date-input" type="date" class="date-input js-date-input">
+      <button class="add-button js-add-button">Add</button>
+    </div>
 
-        <input id="task-input" type="text" placeholder="Enter your task" class="task-input js-task-input">
-        <input id="date-input" type="date" class="date-input js-date-input">
-        <button class="add-button js-add-button">Add</button>
+    <!-- Clear-buttons Container -->
+    <div class="clear-buttons-container">
+      <button class="clear-tasks js-clear-completed-tasks">Clear completed tasks</button>
+      <button class="clear-tasks js-clear-all-tasks">Clear all tasks</button>
+    </div>
 
-      </div>
-
-      <!-- Clear-buttons Container -->
-      <div class="clear-buttons-container">
-
-        <button class="clear-tasks js-clear-completed-tasks">Clear completed tasks</button>
-        <button class="clear-tasks js-clear-all-tasks">Clear all tasks</button>
-
-      </div>
-
-      <!-- Display Task List Container -->
-      <div class="js-empty-state-message">Your tasks will be visible here.</div>
-
-      <ul class="display-task-list-container js-display-task-list-container">
-
-      </ul>
+    <!-- Display Task List Container -->
+    <div class="js-empty-state-message">Your tasks will be visible here.</div>
+    <ul class="display-task-list-container js-display-task-list-container"></ul>
 
   </div>
 
+  <!-- Dialogs -->
+   <div class="custom-dialog-overlay js-alert-dialog-overlay">
+      <div class="custom-dialog js-alert-dialog">
+        <p class="dialog-message js-alert-message"></p>
+        <button class="dialog-button js-alert-ok-button">Ok</button>
+      </div>
+   </div>
+
+   <div class="custom-dialog-overlay js-confirmation-dialog-overlay">
+      <div class="custom-dialog js-confirmation-dialog">
+        <p class="dialog-message js-confirmation-message"></p>
+        <div class="dialog-buttons js-confirmation-buttons">
+          <button class="dialog-button js-confirm-yes-button">Yes</button>
+          <button class="dialog-button js-confirm-no-button">No</button>          
+        </div>
+      </div>
+   </div>
 
   <!-- Script -->
 

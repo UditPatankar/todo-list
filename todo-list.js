@@ -2,11 +2,21 @@
 const taskInputElement = document.querySelector('.js-task-input');
 const dateInputElement = document.querySelector('.js-date-input');
 const addButtonElement = document.querySelector('.js-add-button');
+
 const clearAllButtonElement = document.querySelector('.js-clear-all-tasks');
 const clearCompletedButtonElement = document.querySelector('.js-clear-completed-tasks');
-const taskListContainer = document.querySelector('.js-display-task-list-container');
-const emptyStateMessageElement = document.querySelector('.js-empty-state-message'); // ADD THIS LINE
 
+const taskListContainer = document.querySelector('.js-display-task-list-container');
+const emptyStateMessageElement = document.querySelector('.js-empty-state-message');
+
+const alertDialogOverlay = document.querySelector('.js-alert-dialog-overlay');
+const alertMessageElement = document.querySelector('.js-alert-message');
+const alertOkButton = document.querySelector('.js-alert-ok-button');
+
+const confirmationDialogOverlay = document.querySelector('.js-confirmation-dialog-overlay');
+const confirmationMessageElement = document.querySelector('.js-confirmation-message');
+const confirmationYesButton = document.querySelector('.js-confirm-yes-button');
+const confirmationNoButton = document.querySelector('.js-confirm-no-button');
 
 
 //----Array to store list-
@@ -81,22 +91,62 @@ function deleteTask(index) {
 
 //----Function to clear all tasks-
 function clearAllTasks() {
-
-  //empty the array;
-  taskList = [];
-
-  saveTaskToLocalStorage();
-  renderTaskList();
+   if(taskList.length === 0) {
+      showAlertDialog('Your To-Do list ia already empty!');
+      return;
+   }
+   
+  showConfirmationDialog('Are you sure you want to clear All tasks?', () => {
+      taskList = [];
+      saveTaskToLocalStorage();
+      renderTaskList();
+  });
 }
 
 //----Function to clear completed Tasks-
 function clearCompletedTasks() {
+   const completedTasks = taskList.filter(taskObject => taskObject.completed);
 
-  ///filter array:
-  taskList = taskList.filter(taskObject => !taskObject.completed)
+   if(completedTasks.length === 0) {
+      showAlertDialog('You have no completed tasks to remove!');
+      return;
+   }
 
-  saveTaskToLocalStorage();
-  renderTaskList();
+   showConfirmationDialog('Are you sure want to deleted All completed tasks?', () => {
+      taskList = taskList.filter(taskObject => !taskObject.completed);
+      saveTaskToLocalStorage();
+      renderTaskList();
+   });
+
+}
+
+
+//----Function to show alert-
+function showAlertDialog(message) {
+   alertMessageElement.innerText = message;
+   alertDialogOverlay.classList.add('visible');
+
+   //close on ok:
+   alertOkButton.onclick = () => {
+      alertDialogOverlay.classList.remove('visible');
+   };
+}
+
+//----Function to show confirmation-
+function showConfirmationDialog(message, onConfirmCallBack) {
+   confirmationMessageElement.innerText = message;
+   confirmationDialogOverlay.classList.add('visible');
+
+   confirmationYesButton.onclick = () => {
+      confirmationDialogOverlay.classList.remove('visible');
+      if(onConfirmCallBack){
+         onConfirmCallBack();
+      }
+   };
+
+   confirmationNoButton.onclick = () => {
+      confirmationDialogOverlay.classList.remove('visible');
+   };
 }
 
 //----Function for done button-
@@ -117,9 +167,8 @@ function addTaskAndDate() {
 
   //check for empty input:
   if(task === '' || dueDate === '') {
-
-    alert('Task or date is empty, Please enter both')
-    return;
+   showAlertDialog('Task or date is empty. Please enter both.');
+   return;
   }
 
   //push to array:
@@ -148,12 +197,12 @@ function saveTaskToLocalStorage() {
 
 //----EventListener-
 addButtonElement.addEventListener("click", addTaskAndDate);
-taskInputElement.addEventListener("keydown", (event) => {
-    if (event.key === 'Enter') {
+taskInputElement.addEventListener("keydown", event => {
+   if (event.key === 'Enter') {
         addTaskAndDate();
     }
 });
-dateInputElement.addEventListener("keydown", (event) => {
+dateInputElement.addEventListener("keydown", event => {
     if (event.key === 'Enter') {
         addTaskAndDate();
     }
