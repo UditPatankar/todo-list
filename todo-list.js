@@ -2,10 +2,15 @@
 const taskInputElement = document.querySelector('.js-task-input');
 const dateInputElement = document.querySelector('.js-date-input');
 const addButtonElement = document.querySelector('.js-add-button');
+const clearAllButtonElement = document.querySelector('.js-clear-all-tasks');
+const clearCompletedButtonElement = document.querySelector('.js-clear-completed-tasks');
 const taskListContainer = document.querySelector('.js-display-task-list-container');
+const emptyStateMessageElement = document.querySelector('.js-empty-state-message'); // ADD THIS LINE
+
+
 
 //----Array to store list-
-const taskList = JSON.parse(localStorage.getItem("taskList")) || [];
+let taskList = JSON.parse(localStorage.getItem("taskList")) || [];
 console.log(taskList);
 
 //render task on page load:
@@ -13,6 +18,15 @@ renderTaskList();
 
 //----Function to render/display task list-
 function renderTaskList() {
+
+  //check for array empty state:
+  if (taskList.length === 0) {
+    emptyStateMessageElement.style.display = 'block'; // Show the empty message
+    taskListContainer.style.display = 'none'; // Hide the <ul> list
+  } else {
+    emptyStateMessageElement.style.display = 'none'; // Hide the empty message
+    taskListContainer.style.display = 'flex'; // Show the <ul> list (assuming your CSS has display: flex for it)
+  }
   
   //clear ul initially:
   taskListContainer.innerHTML = '';
@@ -65,6 +79,26 @@ function deleteTask(index) {
   saveTaskToLocalStorage();
 }
 
+//----Function to clear all tasks-
+function clearAllTasks() {
+
+  //empty the array;
+  taskList = [];
+
+  saveTaskToLocalStorage();
+  renderTaskList();
+}
+
+//----Function to clear completed Tasks-
+function clearCompletedTasks() {
+
+  ///filter array:
+  taskList = taskList.filter(taskObject => !taskObject.completed)
+
+  saveTaskToLocalStorage();
+  renderTaskList();
+}
+
 //----Function for done button-
 function doneTask(index) {
 
@@ -111,6 +145,7 @@ function saveTaskToLocalStorage() {
 }
 
 
+
 //----EventListener-
 addButtonElement.addEventListener("click", addTaskAndDate);
 taskInputElement.addEventListener("keydown", (event) => {
@@ -123,4 +158,6 @@ dateInputElement.addEventListener("keydown", (event) => {
         addTaskAndDate();
     }
 });
+clearAllButtonElement.addEventListener("click", clearAllTasks);
+clearCompletedButtonElement.addEventListener("click", clearCompletedTasks);
 
